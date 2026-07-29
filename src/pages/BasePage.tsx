@@ -1,13 +1,15 @@
 import { VideoHero } from '../components/VideoHero'
-import { AboutSection } from '../components/AboutSection'
 import { PinnedPortfolio } from '../components/PinnedPortfolio'
+import { AboutSection } from '../components/AboutSection'
 import { CampaignsSection } from '../components/CampaignsSection'
 import type { CampaignCategory } from '../components/CampaignsSection'
 import { ProcessSection } from '../components/ProcessSection'
 import type { ProcessStep } from '../components/ProcessSection'
 import { ContactSection } from '../components/ContactSection'
-import { isabella, images, portfolio, heroVideos } from '../content/isabella'
-import { vinhoVariations } from '../content/vinhoVariations'
+import { isabella, images, portfolio, heroVideos, videos } from '../content/isabella'
+// Nome do arquivo mantido como `vinhoVariations` (não renomeado junto com as
+// páginas) — é conteúdo de copy alternativa compartilhado entre Base/V1/V2.
+import type { VinhoVariation } from '../content/vinhoVariations'
 import logoGucci from '../assets/images/logos/01 - Gucci_logo.png'
 import logoVersace from '../assets/images/logos/02 - versace-primary-logo.png'
 import logoChanel from '../assets/images/logos/03 - Chanel_logo.png'
@@ -24,32 +26,26 @@ const partnerLogos = [
   { src: logoZara, alt: 'Zara' },
 ]
 
-const bg = '#FFFFFF'
-const ink = '#15140F'
-const muted = '#6B6A63'
-const accent = '#616D5A'
-const surface = '#F1EFE9'
-const line = '#DEDACF'
-// Reservado pro rótulo fixo do Portfólio: é a única seção realmente escura
-// (foto/vídeo full-bleed) — o `accent` (verde-oliva escuro) não teria
-// contraste suficiente ali, então usa-se um tom claro só nesse caso.
-const darkSectionLabel = '#DCE0D6'
+const bg = '#1A1310'
+const ink = '#F3ECE4'
+const muted = '#B9A99A'
+const accent = '#C9A66B'
+const line = '#3A2C27'
+const vinho = '#6E1F2A'
 
-const display = { fontFamily: "'Space Grotesk', sans-serif", color: ink }
+const display = { fontFamily: "'Fraunces', serif", fontStyle: 'italic' as const, color: ink }
 const body = { fontFamily: "'Inter', sans-serif" }
-const mono = { fontFamily: "'IBM Plex Mono', monospace" }
 
-const SCROLL_ROOT_ID = 'studio-scroll-root'
+type BasePageProps = {
+  /** Variação de copy (ver src/content/vinhoVariations.ts). Sem isso, usa o conteúdo padrão. */
+  variation?: VinhoVariation
+}
 
-// Copy: variação "Resultados & Mídia Kit" (ver src/content/vinhoVariations.ts)
-// — tom orientado a dados/métricas combina com a identidade mono da Studio.
-const copy = vinhoVariations.v1
-const portfolioItems = portfolio.map((item, i) => ({
-  ...item,
-  caption: `${copy.portfolio[i].title}.`,
-  description: copy.portfolio[i].description,
-}))
+const SCROLL_ROOT_ID = 'base-scroll-root'
 
+// Enriquecimento local (ícone + foto de apoio em 3 delas) das categorias de
+// `isabella.categories` — mantido aqui, não na fonte compartilhada, pra cada
+// rota poder ajustar suas próprias categorias/ícones sem afetar as demais.
 const campaignCategories: CampaignCategory[] = [
   { label: 'Moda feminina', icon: 'dress', image: images.fashion02 },
   { label: 'Beleza & skincare', icon: 'sparkle', image: images.beauty09 },
@@ -80,7 +76,28 @@ const processSteps: ProcessStep[] = [
   },
 ]
 
-export function StudioPage() {
+export function BasePage({ variation }: BasePageProps) {
+  const title = variation?.headline ?? 'Isabella Marques'
+  const lead = variation?.subheadline ?? 'Moda, beleza e lifestyle com autenticidade.'
+  const bioLong = variation?.sobre ?? isabella.bioLong
+  const ctaPrimary = variation?.ctaPrimary ?? 'Contato Comercial'
+  const ctaContact = variation?.ctaPrimary ?? 'Solicitar Disponibilidade'
+  const ctaSecondary = variation?.ctaSecondary
+
+  const portfolioItems = variation
+    ? portfolio.map((item, i) => ({
+        ...item,
+        caption: `${variation.portfolio[i].title}.`,
+        description: variation.portfolio[i].description,
+      }))
+    : portfolio
+
+  // Vídeo novo (par portrait/landscape "Isabella 01"), na /base principal
+  // (sem variação) e na variação "vinho-v2". As demais variações (v1, v3, v4,
+  // v5) continuam com o vídeo original.
+  const useNewHeroVideo = !variation || variation.slug === 'vinho-v2'
+  const heroVideoSrc = useNewHeroVideo ? videos.v01Portrait : heroVideos.base
+
   return (
     <div
       id={SCROLL_ROOT_ID}
@@ -88,37 +105,47 @@ export function StudioPage() {
       className="h-dvh w-full snap-y snap-mandatory overflow-y-auto"
     >
       <VideoHero
-        videoSrc={heroVideos.studio}
+        videoSrc={heroVideoSrc}
+        desktopVideoSrc={videos.v01Landscape}
         eyebrow="Modelo Comercial — São Paulo"
-        title={copy.headline}
-        titleClassName="text-[clamp(2.25rem,6vw,4rem)] leading-[1.02]"
-        lead={copy.subheadline}
+        title={title}
+        titleClassName="text-[clamp(2.75rem,9vw,4.75rem)] leading-[0.98]"
+        lead={lead}
         location={isabella.location.split(',')[0]}
         locationLabel={isabella.locationLabel}
         stats={isabella.socialStats}
-        ctaLabel="Contato Comercial"
+        ctaLabel={ctaPrimary}
         ctaHref={isabella.contactHref}
+        ctaSecondaryLabel={ctaSecondary}
+        ctaSecondaryHref={isabella.contactHref}
         ctaTagline="Collabs e Campanhas"
-        colors={{ overlayTint: ink, text: bg, mutedText: surface, accent, ctaBg: bg, ctaText: ink }}
+        colors={{
+          overlayTint: bg,
+          text: ink,
+          mutedText: muted,
+          accent,
+          ctaBg: vinho,
+          ctaText: ink,
+        }}
         displayFont={display}
         bodyFont={body}
-        labelFont={mono}
         replayOnScroll
       />
 
       {/* Sobre */}
       <AboutSection
-        image={images.rosto}
-        bioLong={copy.sobre}
+        image={images.v02Portrait}
+        desktopImage={images.v02Landscape}
+        bioLong={bioLong}
         stats={isabella.stats}
-        overlayColor={ink}
-        bodyStyle={{ ...body, color: bg }}
-        mutedStyle={{ ...mono, color: surface }}
-        valueColor={darkSectionLabel}
+        overlayColor={bg}
+        bodyStyle={{ ...body, color: ink }}
+        mutedStyle={{ color: muted }}
+        valueColor={accent}
         lineColor={line}
         scroller={`#${SCROLL_ROOT_ID}`}
         eyebrow="Sobre"
-        eyebrowStyle={{ ...mono, color: darkSectionLabel }}
+        eyebrowStyle={{ ...body, color: accent }}
         imageBrightness={0.4}
       />
 
@@ -126,10 +153,10 @@ export function StudioPage() {
       <PinnedPortfolio
         items={portfolioItems}
         eyebrow="Especialidades"
-        eyebrowStyle={{ ...mono, color: darkSectionLabel }}
-        captionStyle={{ ...display, color: '#FFFFFF' }}
-        descriptionStyle={{ ...body, color: surface }}
-        overlayColor={ink}
+        eyebrowStyle={{ ...body, color: accent }}
+        captionStyle={{ ...display }}
+        descriptionStyle={{ ...body, color: ink }}
+        overlayColor={bg}
         mediaBrightness={0.4}
       />
 
@@ -138,20 +165,22 @@ export function StudioPage() {
         categories={campaignCategories}
         intro="Um perfil versátil o suficiente pra transitar entre esses universos sem perder consistência."
         eyebrow="Campanhas"
-        eyebrowStyle={{ ...mono, color: accent }}
+        eyebrowStyle={{ ...body, color: accent }}
         bodyStyle={body}
         colors={{ ink, muted, accent, line, bg }}
         scroller={`#${SCROLL_ROOT_ID}`}
         partnersLogos={partnerLogos}
         partnersTitle="Marcas Parceiras"
+        desktopEnlarged
       />
 
       {/* Como funciona */}
       <ProcessSection
-        image={images.dress10}
+        image={images.v08Portrait}
+        desktopImage={images.v08Landscape}
         steps={processSteps}
         eyebrow="Da ideia à campanha"
-        eyebrowStyle={{ ...mono, color: accent }}
+        eyebrowStyle={{ ...body, color: accent }}
         bodyStyle={body}
         displayFont={display}
         colors={{ ink, muted, accent, line, bg }}
@@ -159,10 +188,13 @@ export function StudioPage() {
 
       {/* Contato final */}
       <ContactSection
-        image={images.corpo}
+        image={images.v07Portrait}
+        desktopImage={images.v07Landscape}
         title="A presença que sua marca precisa."
-        ctaPrimaryLabel="Solicitar Disponibilidade"
+        ctaPrimaryLabel={ctaContact}
         ctaHref={isabella.contactHref}
+        ctaSecondaryLabel={ctaSecondary}
+        ctaSecondaryHref={isabella.contactHref}
         ctaTagline="Parcerias"
         mediaKitDescription="Reúne formatos de conteúdo, métricas e disponibilidade para propostas de parceria."
         mediaKitCtaLabel="Solicitar Mídia Kit"
@@ -172,13 +204,13 @@ export function StudioPage() {
         emailHref={isabella.contactHref}
         locationLine={`${isabella.location.split(',')[0]} · Atuação nacional`}
         eyebrow="Contato"
-        eyebrowStyle={{ ...mono, color: accent }}
+        eyebrowStyle={{ ...body, color: accent }}
         displayFont={display}
         bodyStyle={body}
-        colors={{ ink, muted, accent, line, bg, ctaBg: ink, ctaText: bg }}
+        colors={{ ink, muted, accent, line, bg, ctaBg: vinho, ctaText: ink }}
       />
 
-      <footer className="border-t px-6 py-8 text-[11px] sm:px-10" style={{ borderColor: line, color: muted, ...mono }}>
+      <footer className="border-t px-6 py-8 text-[11px] sm:px-10" style={{ borderColor: line, color: muted }}>
         {isabella.name} · {isabella.location} · {isabella.contactLabel}
       </footer>
     </div>

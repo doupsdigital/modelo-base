@@ -39,7 +39,7 @@ const display = { fontFamily: "'DM Serif Display', serif", fontStyle: 'italic' a
 const body = { fontFamily: "'Inter', sans-serif" }
 const data = { fontFamily: "'Archivo', sans-serif" }
 
-const SCROLL_ROOT_ID = 'cover-scroll-root'
+const SCROLL_ROOT_ID = 'v1-scroll-root'
 
 /** Fração da seção visível pra disparar o replay — mesmo valor usado no Hero/Portfólio das outras rotas. */
 const ACTIVE_THRESHOLD = 0.6
@@ -84,13 +84,14 @@ const processSteps: ProcessStep[] = [
 ]
 
 /**
- * Hero de assinatura da Cover — nome gigante estilo capa de revista, layout
- * próprio (não usa o VideoHero compartilhado). Reanima com o mesmo padrão
- * de replay-no-scroll do VideoHero (timeline pausada + IntersectionObserver
- * reiniciando ao voltar a ficar visível), pra ter o mesmo comportamento das
- * outras rotas mantendo o visual exclusivo desta página.
+ * Hero de assinatura da V1 (paleta Bold Cover) — nome gigante estilo capa de
+ * revista, layout próprio (não usa o VideoHero compartilhado). Reanima com o
+ * mesmo padrão de replay-no-scroll do VideoHero (timeline pausada +
+ * IntersectionObserver reiniciando ao voltar a ficar visível), pra ter o
+ * mesmo comportamento das outras rotas mantendo o visual exclusivo desta
+ * página.
  */
-function CoverHero() {
+function V1Hero() {
   const sectionRef = useRef<HTMLElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const overlayRef = useRef<HTMLDivElement>(null)
@@ -136,7 +137,7 @@ function CoverHero() {
 
   return (
     <section ref={sectionRef} className="relative h-dvh w-full snap-start snap-always overflow-hidden">
-      <FullBleedMedia src={heroVideos.cover} type="video" alt="" mediaRef={videoRef} className="absolute inset-0" />
+      <FullBleedMedia src={heroVideos.v1} type="video" alt="" mediaRef={videoRef} className="absolute inset-0" />
       <div
         ref={overlayRef}
         className="absolute inset-0"
@@ -212,14 +213,14 @@ function CoverHero() {
   )
 }
 
-export function CoverPage() {
+export function V1Page() {
   return (
     <div
       id={SCROLL_ROOT_ID}
       style={{ backgroundColor: bg, color: ink, ...body }}
       className="h-dvh w-full snap-y snap-mandatory overflow-y-auto"
     >
-      <CoverHero />
+      <V1Hero />
 
       {/* Sobre */}
       <AboutSection

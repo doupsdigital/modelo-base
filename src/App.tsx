@@ -1,21 +1,17 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Home } from './pages/Home'
-import { NoirPage } from './pages/NoirPage'
-import { RivieraPage } from './pages/RivieraPage'
-import { StudioPage } from './pages/StudioPage'
-import { CoverPage } from './pages/CoverPage'
-import { VinhoPage } from './pages/VinhoPage'
+import { BasePage } from './pages/BasePage'
+import { V1Page } from './pages/V1Page'
+import { V2Page } from './pages/V2Page'
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/noir" element={<NoirPage />} />
-        <Route path="/riviera" element={<RivieraPage />} />
-        <Route path="/studio" element={<StudioPage />} />
-        <Route path="/cover" element={<CoverPage />} />
-        <Route path="/vinho" element={<VinhoPage />} />
+        <Route path="/base" element={<BasePage />} />
+        <Route path="/v1" element={<V1Page />} />
+        <Route path="/v2" element={<V2Page />} />
       </Routes>
     </BrowserRouter>
   )

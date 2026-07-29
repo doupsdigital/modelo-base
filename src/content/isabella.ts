@@ -26,9 +26,9 @@ import video03Landscape from '../assets/videos/landscape/Isabella 03 - LD.mp4'
 
 export const images = {
   // Repontadas pros arquivos novos "Isabella NN - PT" (mesmas chaves, usadas
-  // em Home/Noir/Riviera/Studio/Cover) — os antigos isabella-rosto.jpg,
-  // isabella-corpo.jpg, isabella-fashion-02.jpg, isabella-color-06.jpg e
-  // isabella-dress-10.jpeg não são mais referenciados em lugar nenhum.
+  // em Home/Base/V1/V2) — os antigos isabella-rosto.jpg, isabella-corpo.jpg,
+  // isabella-fashion-02.jpg, isabella-color-06.jpg e isabella-dress-10.jpeg
+  // não são mais referenciados em lugar nenhum.
   rosto: image02Portrait,
   corpo: image07Portrait,
   fitness,
@@ -37,7 +37,7 @@ export const images = {
   beauty09,
   dress10: image08Portrait,
   skirt11,
-  // Par portrait/landscape da seção Sobre (Vinho) — portrait no mobile,
+  // Par portrait/landscape da seção Sobre (Base) — portrait no mobile,
   // landscape no desktop.
   v02Portrait: image02Portrait,
   v02Landscape: image02Landscape,
@@ -62,12 +62,12 @@ export const images = {
 export const videos = {
   fitness: videoFitness,
   // Repontadas pros arquivos novos (mesmas chaves, usadas no heroVideos do
-  // Noir/Riviera/Studio/Vinho) — isabella-09.mp4, isabella-10.mp4 e
-  // isabella-11.mp4 não são mais referenciados em lugar nenhum.
+  // Base/V2) — isabella-09.mp4, isabella-10.mp4 e isabella-11.mp4 não são
+  // mais referenciados em lugar nenhum.
   v09: video03Portrait,
   v10: video01Portrait,
   v11: video02Portrait,
-  // Par portrait/landscape do hero (tela 1) — ver VinhoPage: portrait no
+  // Par portrait/landscape do hero (tela 1) — ver BasePage: portrait no
   // mobile, landscape no desktop.
   v01Portrait: video01Portrait,
   v01Landscape: video01Landscape,
@@ -81,16 +81,12 @@ export const videos = {
   v03Landscape: video03Landscape,
 }
 
-// Vídeo de abertura (hero full-bleed) de cada uma das 5 direções visuais.
-// Só existem 4 vídeos reais — v10 é reaproveitado no Noir e no Vinho, as
-// duas paletas mais escuras/noturnas, onde o clima do vídeo (rooftop à
-// noite) combina com as duas.
+// Vídeo de abertura (hero full-bleed) de cada uma das 3 direções mantidas —
+// Base, V1 e V2 (ver "Direções de partida" no CLAUDE.md).
 export const heroVideos = {
-  noir: videos.v10,
-  riviera: videos.v11,
-  studio: videos.v09,
-  cover: videos.fitness,
-  vinho: videos.v10,
+  base: videos.v10,
+  v1: videos.fitness,
+  v2: videos.v11,
 }
 
 export const isabella = {

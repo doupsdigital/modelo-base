@@ -6,9 +6,10 @@ parcerias com marcas, provadores, agências e campanhas). Este arquivo
 define as convenções que devem ser seguidas em toda página gerada a
 partir deste template.
 
-Este repositório contém a cliente fictícia "Isabella Marques" e 5 rotas
-de demonstração (ver "Direções de partida" abaixo) como conteúdo de
-referência/placeholder — não são um cliente real a preservar. Pra cada
+Este repositório contém a cliente fictícia "Isabella Marques" e 3 rotas
+de demonstração — `/base`, `/v1` e `/v2` (ver "Direções de partida"
+abaixo) — como conteúdo de referência/placeholder, não um cliente real a
+preservar. Pra cada
 cliente modelo nova, este repositório inteiro é **duplicado** no GitHub e
 os dados da Isabella são **substituídos** pelos da nova cliente dentro
 dessa cópia — ver "Fluxo de trabalho por cliente".
@@ -41,7 +42,7 @@ antes mesmo da pessoa conversar com o cliente/parceiro.
   rota)
 - Antes de escrever um componente do zero, **verificar se já existe um
   equivalente em `src/components/`** (ver "O motor comprovado" abaixo) —
-  esse é o ativo mais valioso deste projeto, já testado em 5 paletas
+  esse é o ativo mais valioso deste projeto, já testado em 3 paletas
   diferentes.
 - Deploy via Vercel
 
@@ -70,11 +71,10 @@ Context/          # (não versionado) prints, bio, fotos/vídeos originais e
 Este projeto passou por bastante iteração até chegar num resultado que
 funciona bem (várias abordagens de transição entre seções foram tentadas
 e descartadas antes desta, ver o "por quê" logo abaixo). O resultado está
-validado em produção nas rotas `/vinho`,
-`/noir`, `/riviera`, `/studio` e `/cover`, cada uma com paleta e
-tipografia próprias sobre a mesma estrutura. **Não reinvente essas peças
-pra um cliente novo** — componha a partir delas, e só escreva um
-componente novo quando a seção realmente não tiver equivalente.
+validado em produção nas rotas `/base`, `/v1` e `/v2`, cada uma com
+paleta e tipografia próprias sobre a mesma estrutura. **Não reinvente
+essas peças pra um cliente novo** — componha a partir delas, e só escreva
+um componente novo quando a seção realmente não tiver equivalente.
 
 ### Componentes prontos (`src/components/`)
 
@@ -157,9 +157,8 @@ diferentes (ver "Direções de partida"), não editar o componente.
 
 ### Direções de partida (paletas de referência)
 
-As rotas `/noir`, `/riviera`, `/studio` e `/cover` (além da `/vinho`, a
-mais trabalhada de todas) ficam neste projeto-base como **pontos de
-partida rápidos de humor visual** — não são "os 5 estilos definitivos pra
+As rotas `/base`, `/v1` e `/v2` ficam neste projeto-base como **pontos de
+partida rápidos de humor visual** — não são "os 3 estilos definitivos pra
 qualquer cliente": foram criadas comparando direções pra uma única
 cliente fictícia. Use como inspiração de arranjo (paleta escura vs. clara,
 serifada vs. mono, editorial vs. dramática) e depois **redirecione
@@ -167,22 +166,22 @@ cores/tipografia pra identidade real do cliente atual** — não copie os
 hex literalmente a menos que já combinem por coincidência com a marca
 dele.
 
-- **Vinho** (`/vinho`) — marrom quase preto + dourado + vinho, Playfair
-  Display. A página mais completa e testada — comece por ela como
-  referência de estrutura ao montar um projeto novo.
-- **Editorial Noir** (`/noir`) — preto + dourado, Fraunces itálico —
-  editorial/autoral.
-- **Riviera Gold** (`/riviera`) — areia + bronze, Cormorant Garamond —
-  quente/refinado.
-- **Studio Clean** (`/studio`) — branco + verde-sálvia, Space
-  Grotesk/mono — clean/orientado a dados.
-- **Bold Cover** (`/cover`) — verde-oliva escuro + dourado, DM Serif
-  gigante — dramático, estilo capa de revista.
+- **Base** (`/base`, paleta Vinho) — marrom quase preto + dourado +
+  vinho, Playfair Display. A estrutura de referência, mais completa e
+  testada — toda proposta "base" de uma cliente nova segue essa mesma
+  ordem de seções e comportamento de scroll à risca (ver "Múltiplas
+  propostas por cliente" abaixo).
+- **V1** (`/v1`, paleta Bold Cover) — verde-oliva escuro + dourado, DM
+  Serif itálico gigante, hero de assinatura estilo capa de revista —
+  exemplo de proposta com liberdade criativa de estrutura/visual.
+- **V2** (`/v2`, paleta Riviera Gold) — areia + bronze, Cormorant
+  Garamond, régua pontilhada de alfaiataria — outro exemplo de proposta
+  com liberdade criativa.
 
 ### Convenções de CTA e copy padrão comprovadas
 
 O padrão abaixo (a **estrutura**, não o texto literal) já foi validado
-nas 5 rotas — usar como forma, adaptando as palavras à voz e ao nicho do
+nas 3 rotas — usar como forma, adaptando as palavras à voz e ao nicho do
 cliente real:
 
 - Hero: um único CTA principal (sem secundário por padrão — ver "Regras
@@ -198,25 +197,25 @@ cliente real:
 
 ## Múltiplas propostas por cliente (liberdade criativa)
 
-A estrutura da vinho (ordem de seções, comportamento de scroll, elementos
-de assinatura) foi validada a fundo pro nicho de modelo comercial — é o
-único nicho que este projeto atende. Pra cada cliente modelo nova,
-**gerar no mínimo 2 páginas, idealmente 3 a 4**, antes de fechar num
-resultado único:
+A estrutura da Base (`/base`) — ordem de seções, comportamento de scroll,
+elementos de assinatura — foi validada a fundo pro nicho de Modelo
+comercial, que é o único nicho que este projeto atende. Pra cada cliente
+nova, **gerar no mínimo 2 páginas, idealmente 3 a 4**, antes de fechar
+num resultado único:
 
 1. **Uma página "base"** — segue à risca a estrutura, ordem de seções e
    comportamento de scroll já comprovados (ver "O motor comprovado"), só
-   adaptando conteúdo/paleta/tipografia ao cliente. É a opção segura, já
+   adaptando conteúdo/paleta/tipografia à cliente. É a opção segura, já
    testada de ponta a ponta.
 2. **Mais 2 ou 3 páginas com liberdade criativa de verdade** — não são só
-   recolorações da mesma página (isso já foi feito nas 5 direções da
+   recolorações da mesma página (isso já foi feito nas propostas V1/V2 da
    Isabella e não é o objetivo aqui). São propostas genuinamente
    diferentes de estrutura visual, ordem/ênfase das seções e elementos de
-   assinatura (como a régua de alfaiataria da Riviera ou o Comp Card da
-   Studio foram tentativas próprias, cada uma) — usando o julgamento
-   criativo do Claude Code, sempre dentro das regras de tom/design já
-   documentadas neste arquivo (ver "O que este projeto NÃO é", "Tom de
-   copy", "Regras de design").
+   assinatura (como o hero gigante estilo capa de revista da V1 ou a
+   régua pontilhada de alfaiataria da V2 foram tentativas próprias, cada
+   uma) — usando o julgamento criativo do Claude Code, sempre dentro das
+   regras de tom/design já documentadas neste arquivo (ver "O que este
+   projeto NÃO é", "Tom de copy", "Regras de design").
 3. **O motor técnico de scroll não entra na liberdade criativa** — toda
    proposta, mesmo as mais ousadas, usa o mesmo contrato de comportamento
    comprovado (scroll-snap + `IntersectionObserver` + GSAP só pra efeitos
@@ -224,9 +223,9 @@ resultado único:
    estrutura/conteúdo/visual, não sobre reabrir decisões técnicas de
    scroll que já custaram várias iterações pra acertar.
 4. O usuário revisa todas as propostas (cada uma numa rota própria, ex:
-   `/base`, `/proposta-2`, `/proposta-3`) e decide qual seguir — ou pede
-   pra misturar elementos de mais de uma. A palavra final é sempre dele;
-   as propostas são ponto de partida pra decisão, não a entrega em si.
+   `/base`, `/v1`, `/v2`) e decide qual seguir — ou pede pra misturar
+   elementos de mais de uma. A palavra final é sempre dele; as propostas
+   são ponto de partida pra decisão, não a entrega em si.
 5. Só depois de escolhida a direção (ou combinação de direções), colapsar
    pro projeto final de página única — ver "Fluxo de trabalho por
    cliente" abaixo.
@@ -328,9 +327,9 @@ Ao encontrar essa pasta:
   extrair paleta de cores exata (hex), tipografia (nome das fontes de
   título/corpo/dados) e o elemento de assinatura descrito em cada um.
 - Gerar **uma página completa por referência**, em rotas separadas
-  dentro do mesmo projeto (ex: `/noir`, `/riviera`, `/studio`,
-  `/cover`, `/vinho` — usar um nome curto baseado no nome do arquivo de
-  referência para cada rota).
+  dentro do mesmo projeto (ex: `/base`, `/v1`, `/v2` — usar um nome curto
+  baseado no nome do arquivo de referência ou no papel da rota — base ou
+  liberdade criativa — para cada uma).
 - Cada rota deve usar o conteúdo real do cliente (fotos e vídeos de
   `Context/Imagens/` e `Context/Videos/`, texto de `Context/Bio/`),
   seguindo fielmente a paleta e a tipografia daquela referência

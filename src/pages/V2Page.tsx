@@ -6,8 +6,8 @@ import type { CampaignCategory } from '../components/CampaignsSection'
 import { ProcessSection } from '../components/ProcessSection'
 import type { ProcessStep } from '../components/ProcessSection'
 import { ContactSection } from '../components/ContactSection'
-import { isabella, images, portfolio, heroVideos, videos } from '../content/isabella'
-import type { VinhoVariation } from '../content/vinhoVariations'
+import { isabella, images, portfolio, heroVideos } from '../content/isabella'
+import { vinhoVariations } from '../content/vinhoVariations'
 import logoGucci from '../assets/images/logos/01 - Gucci_logo.png'
 import logoVersace from '../assets/images/logos/02 - versace-primary-logo.png'
 import logoChanel from '../assets/images/logos/03 - Chanel_logo.png'
@@ -24,26 +24,33 @@ const partnerLogos = [
   { src: logoZara, alt: 'Zara' },
 ]
 
-const bg = '#1A1310'
-const ink = '#F3ECE4'
-const muted = '#B9A99A'
-const accent = '#C9A66B'
-const line = '#3A2C27'
-const vinho = '#6E1F2A'
+// Nomes mantidos como no arquivo original: `bg` é o creme claro (usado como
+// texto/primeiro plano sobre as seções, e como canvas do wrapper/rodapé) e
+// `ink` é o marrom escuro (usado como fundo dominante das seções de
+// conteúdo) — ver mapeamento invertido nos `colors` de cada seção abaixo.
+const bg = '#EFE6D3'
+const ink = '#2B2118'
+const muted = '#7A6C57'
+const accent = '#97733A'
+const surface = '#E2D5B8'
+const line = '#D3C3A0'
+// Creme ligeiramente mais claro, reservado pras legendas grandes do Portfólio.
+const captionCream = '#F8F3E8'
 
-const display = { fontFamily: "'Fraunces', serif", fontStyle: 'italic' as const, color: ink }
-const body = { fontFamily: "'Inter', sans-serif" }
+const display = { fontFamily: "'Cormorant Garamond', serif", color: ink }
+const body = { fontFamily: "'Manrope', sans-serif" }
 
-type VinhoPageProps = {
-  /** Variação de copy (rotas /vinho-v1..v5). Sem isso, usa o conteúdo padrão. */
-  variation?: VinhoVariation
-}
+const SCROLL_ROOT_ID = 'v2-scroll-root'
 
-const SCROLL_ROOT_ID = 'vinho-scroll-root'
+// Copy: variação "Confiança & Autoridade" (ver src/content/vinhoVariations.ts)
+// — tom premium/confiança combina com o visual dourado e refinado da Riviera.
+const copy = vinhoVariations.v4
+const portfolioItems = portfolio.map((item, i) => ({
+  ...item,
+  caption: `${copy.portfolio[i].title}.`,
+  description: copy.portfolio[i].description,
+}))
 
-// Enriquecimento local (ícone + foto de apoio em 3 delas) das categorias de
-// `isabella.categories` — mantido aqui, não na fonte compartilhada, porque
-// Noir/Riviera/Studio/Cover ainda mapeiam esse array como strings simples.
 const campaignCategories: CampaignCategory[] = [
   { label: 'Moda feminina', icon: 'dress', image: images.fashion02 },
   { label: 'Beleza & skincare', icon: 'sparkle', image: images.beauty09 },
@@ -74,28 +81,7 @@ const processSteps: ProcessStep[] = [
   },
 ]
 
-export function VinhoPage({ variation }: VinhoPageProps) {
-  const title = variation?.headline ?? 'Isabella Marques'
-  const lead = variation?.subheadline ?? 'Moda, beleza e lifestyle com autenticidade.'
-  const bioLong = variation?.sobre ?? isabella.bioLong
-  const ctaPrimary = variation?.ctaPrimary ?? 'Contato Comercial'
-  const ctaContact = variation?.ctaPrimary ?? 'Solicitar Disponibilidade'
-  const ctaSecondary = variation?.ctaSecondary
-
-  const portfolioItems = variation
-    ? portfolio.map((item, i) => ({
-        ...item,
-        caption: `${variation.portfolio[i].title}.`,
-        description: variation.portfolio[i].description,
-      }))
-    : portfolio
-
-  // Vídeo novo (par portrait/landscape "Isabella 01"), na /vinho principal
-  // (sem variação) e na /vinho-v2. As demais variações (v1, v3, v4, v5)
-  // continuam com o vídeo original.
-  const useNewHeroVideo = !variation || variation.slug === 'vinho-v2'
-  const heroVideoSrc = useNewHeroVideo ? videos.v01Portrait : heroVideos.vinho
-
+export function V2Page() {
   return (
     <div
       id={SCROLL_ROOT_ID}
@@ -103,28 +89,18 @@ export function VinhoPage({ variation }: VinhoPageProps) {
       className="h-dvh w-full snap-y snap-mandatory overflow-y-auto"
     >
       <VideoHero
-        videoSrc={heroVideoSrc}
-        desktopVideoSrc={videos.v01Landscape}
+        videoSrc={heroVideos.v2}
         eyebrow="Modelo Comercial — São Paulo"
-        title={title}
-        titleClassName="text-[clamp(2.75rem,9vw,4.75rem)] leading-[0.98]"
-        lead={lead}
+        title="Isabella Marques"
+        titleClassName="text-[clamp(2.5rem,7vw,5.25rem)] leading-[1.02]"
+        lead={copy.subheadline}
         location={isabella.location.split(',')[0]}
         locationLabel={isabella.locationLabel}
         stats={isabella.socialStats}
-        ctaLabel={ctaPrimary}
+        ctaLabel="Contato Comercial"
         ctaHref={isabella.contactHref}
-        ctaSecondaryLabel={ctaSecondary}
-        ctaSecondaryHref={isabella.contactHref}
         ctaTagline="Collabs e Campanhas"
-        colors={{
-          overlayTint: bg,
-          text: ink,
-          mutedText: muted,
-          accent,
-          ctaBg: vinho,
-          ctaText: ink,
-        }}
+        colors={{ overlayTint: ink, text: bg, mutedText: surface, accent, ctaBg: ink, ctaText: bg }}
         displayFont={display}
         bodyFont={body}
         replayOnScroll
@@ -132,13 +108,12 @@ export function VinhoPage({ variation }: VinhoPageProps) {
 
       {/* Sobre */}
       <AboutSection
-        image={images.v02Portrait}
-        desktopImage={images.v02Landscape}
-        bioLong={bioLong}
+        image={images.rosto}
+        bioLong={copy.sobre}
         stats={isabella.stats}
-        overlayColor={bg}
-        bodyStyle={{ ...body, color: ink }}
-        mutedStyle={{ color: muted }}
+        overlayColor={ink}
+        bodyStyle={{ ...body, color: bg }}
+        mutedStyle={{ color: surface }}
         valueColor={accent}
         lineColor={line}
         scroller={`#${SCROLL_ROOT_ID}`}
@@ -152,9 +127,9 @@ export function VinhoPage({ variation }: VinhoPageProps) {
         items={portfolioItems}
         eyebrow="Especialidades"
         eyebrowStyle={{ ...body, color: accent }}
-        captionStyle={{ ...display }}
-        descriptionStyle={{ ...body, color: ink }}
-        overlayColor={bg}
+        captionStyle={{ ...display, color: captionCream }}
+        descriptionStyle={{ ...body, color: bg }}
+        overlayColor={ink}
         mediaBrightness={0.4}
       />
 
@@ -165,34 +140,29 @@ export function VinhoPage({ variation }: VinhoPageProps) {
         eyebrow="Campanhas"
         eyebrowStyle={{ ...body, color: accent }}
         bodyStyle={body}
-        colors={{ ink, muted, accent, line, bg }}
+        colors={{ ink: bg, muted: surface, accent, line, bg: ink }}
         scroller={`#${SCROLL_ROOT_ID}`}
         partnersLogos={partnerLogos}
         partnersTitle="Marcas Parceiras"
-        desktopEnlarged
       />
 
       {/* Como funciona */}
       <ProcessSection
-        image={images.v08Portrait}
-        desktopImage={images.v08Landscape}
+        image={images.dress10}
         steps={processSteps}
         eyebrow="Da ideia à campanha"
         eyebrowStyle={{ ...body, color: accent }}
         bodyStyle={body}
-        displayFont={display}
-        colors={{ ink, muted, accent, line, bg }}
+        displayFont={{ ...display, color: bg }}
+        colors={{ ink: bg, muted: surface, accent, line, bg: ink }}
       />
 
       {/* Contato final */}
       <ContactSection
-        image={images.v07Portrait}
-        desktopImage={images.v07Landscape}
+        image={images.corpo}
         title="A presença que sua marca precisa."
-        ctaPrimaryLabel={ctaContact}
+        ctaPrimaryLabel="Solicitar Disponibilidade"
         ctaHref={isabella.contactHref}
-        ctaSecondaryLabel={ctaSecondary}
-        ctaSecondaryHref={isabella.contactHref}
         ctaTagline="Parcerias"
         mediaKitDescription="Reúne formatos de conteúdo, métricas e disponibilidade para propostas de parceria."
         mediaKitCtaLabel="Solicitar Mídia Kit"
@@ -203,9 +173,9 @@ export function VinhoPage({ variation }: VinhoPageProps) {
         locationLine={`${isabella.location.split(',')[0]} · Atuação nacional`}
         eyebrow="Contato"
         eyebrowStyle={{ ...body, color: accent }}
-        displayFont={display}
+        displayFont={{ ...display, color: bg }}
         bodyStyle={body}
-        colors={{ ink, muted, accent, line, bg, ctaBg: vinho, ctaText: ink }}
+        colors={{ ink: bg, muted: surface, accent, line, bg: ink, ctaBg: ink, ctaText: bg }}
       />
 
       <footer className="border-t px-6 py-8 text-[11px] sm:px-10" style={{ borderColor: line, color: muted }}>

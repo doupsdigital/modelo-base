@@ -17,7 +17,7 @@ type VideoHeroColors = {
   // normalmente a cor mais escura da paleta, mesmo em páginas de tema claro.
   overlayTint: string
   // Cor do texto sobre o vídeo — precisa ser clara/legível sobre o overlay
-  // escuro, mesmo em páginas cujo "ink" normal é escuro (ex: Riviera, Studio).
+  // escuro, mesmo em páginas cujo "ink" normal é escuro (ex: V2/Riviera).
   text: string
   mutedText: string
   accent: string

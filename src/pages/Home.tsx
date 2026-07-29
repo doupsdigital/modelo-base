@@ -4,39 +4,25 @@ import { images } from '../content/isabella'
 
 const directions = [
   {
-    to: '/noir',
-    name: 'Editorial Noir',
-    desc: 'Preto + dourado, Fraunces itálico, nome na vertical como lombada de revista.',
-    img: images.beauty09,
-    bg: '#0C0C0D',
+    to: '/base',
+    name: 'Base — Vinho Editorial',
+    desc: 'Marrom quase preto + dourado + vinho, Playfair Display, barra fixa no topo. Estrutura de referência validada — ponto de partida seguro pra toda cliente nova.',
+    img: images.dress10,
+    bg: '#1A1310',
   },
   {
-    to: '/riviera',
-    name: 'Riviera Gold',
-    desc: 'Areia + bronze, Cormorant Garamond, régua pontilhada de alfaiataria.',
-    img: images.fashion02,
-    bg: '#EFE6D3',
-  },
-  {
-    to: '/studio',
-    name: 'Studio Clean',
-    desc: 'Branco + verde-sálvia, Space Grotesk, comp card com dados em mono.',
-    img: images.rosto,
-    bg: '#FFFFFF',
-  },
-  {
-    to: '/cover',
-    name: 'Bold Cover',
-    desc: 'Verde-oliva escuro + dourado, DM Serif itálico gigante, capa de revista.',
+    to: '/v1',
+    name: 'V1 — Bold Cover',
+    desc: 'Verde-oliva escuro + dourado, DM Serif itálico gigante, capa de revista. Proposta de liberdade criativa.',
     img: images.color06,
     bg: '#14150F',
   },
   {
-    to: '/vinho',
-    name: 'Vinho Editorial',
-    desc: 'Marrom quase preto + dourado + vinho, Playfair Display, barra fixa no topo.',
-    img: images.dress10,
-    bg: '#1A1310',
+    to: '/v2',
+    name: 'V2 — Riviera Gold',
+    desc: 'Areia + bronze, Cormorant Garamond, régua pontilhada de alfaiataria. Proposta de liberdade criativa.',
+    img: images.fashion02,
+    bg: '#EFE6D3',
   },
 ]
 
@@ -50,7 +36,7 @@ export function Home() {
           transition={{ duration: 0.5, ease: 'easeOut' }}
           className="mb-2 text-xs uppercase tracking-[0.2em] text-neutral-400"
         >
-          Isabella Marques — 5 direções visuais
+          Isabella Marques — base + liberdade criativa
         </motion.p>
         <motion.h1
           initial={{ opacity: 0, y: 16 }}
@@ -58,7 +44,7 @@ export function Home() {
           transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
           className="mb-12 text-3xl font-medium sm:text-4xl"
         >
-          Escolha uma direção para revisar
+          Base validada + 2 propostas de liberdade criativa
         </motion.h1>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">

@@ -21,7 +21,7 @@ const ACTIVE_THRESHOLD = 0.6
 /**
  * Cada item é uma seção comum (`snap-start snap-always`), empilhada no
  * fluxo normal da página — sem scroller próprio. O container de scroll com
- * `scroll-snap-type` é a página inteira (ver `VinhoPage`), não um bloco
+ * `scroll-snap-type` é a página inteira (ver `BasePage`), não um bloco
  * isolado só pro portfólio: assim o "uma rolagem = uma seção" fica
  * consistente do Hero ao Contato, sem um ponto onde a página muda de
  * comportamento. A seção que encaixou é detectada por IntersectionObserver

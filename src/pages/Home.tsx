@@ -24,6 +24,13 @@ const directions = [
     img: images.fashion02,
     bg: '#EFE6D3',
   },
+  {
+    to: '/v3',
+    name: 'V3 — Influencer com Links',
+    desc: 'Mesma paleta Vinho da Base — Hero com bio incorporada (sem seção Sobre) e uma seção "Links" estilo link-na-bio logo em seguida. Proposta de estrutura.',
+    img: images.v04Portrait,
+    bg: '#1A1310',
+  },
 ]
 
 export function Home() {

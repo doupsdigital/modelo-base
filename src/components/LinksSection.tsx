@@ -95,11 +95,17 @@ export function LinksSection({ links, eyebrow, eyebrowStyle, bodyStyle, displayF
                     } as CSSProperties
                   }
                 >
+                  {/* Foto renderizada mais larga que o banner (130%) e deslocada via `left` — só assim o deslocamento horizontal tem efeito de verdade: num banner bem mais largo que alto, `object-position` X sozinho não move nada, porque a largura já cobre 100% do frame sem sobra. */}
                   <img
                     src={link.image}
                     alt=""
                     aria-hidden
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 group-active:scale-110"
+                    className="absolute top-0 h-full max-w-none object-cover transition-transform duration-700 ease-out group-hover:scale-105 group-active:scale-105"
+                    style={{
+                      width: '130%',
+                      left: `${link.imageOffsetX ?? -18}%`,
+                      objectPosition: `center ${link.imagePosition ?? '16%'}`,
+                    }}
                   />
                   <div
                     className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-80 group-active:opacity-80"

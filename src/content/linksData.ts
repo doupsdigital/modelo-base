@@ -7,6 +7,10 @@ export type LinkItem = {
   title: string
   subtitle?: string
   image: string
+  /** Componente vertical do `object-position` (CSS) do banner — os banners são baixos e largos (ver LinksSection), então um recorte padrão centralizado corta o rosto de uma foto em pé. Ajustar por foto até o rosto ficar visível. */
+  imagePosition?: string
+  /** Deslocamento horizontal da foto dentro do banner, em % (ver LinksSection) — a foto é renderizada mais larga que o banner só pra isso ter efeito de verdade (object-position X sozinho não move nada num banner bem mais largo que alto). Negativo desloca a foto pra esquerda, revelando mais do lado direito da imagem original. */
+  imageOffsetX?: number
   url: string
   ctaLabel: string
   icon: LinkIconName
@@ -20,6 +24,7 @@ export const linksData: LinkItem[] = [
     title: 'Instagram',
     subtitle: 'Bastidores e campanhas do dia a dia.',
     image: images.v04Portrait,
+    imagePosition: '16%',
     url: isabella.instagramHref,
     ctaLabel: 'Ver Instagram',
     icon: 'instagram',
@@ -28,6 +33,7 @@ export const linksData: LinkItem[] = [
     title: 'Parcerias',
     subtitle: 'Propostas de campanha e collabs de marca.',
     image: images.v06Portrait,
+    imagePosition: '14%',
     url: isabella.contactHref,
     ctaLabel: 'Falar sobre Parcerias',
     icon: 'handshake',
@@ -35,7 +41,9 @@ export const linksData: LinkItem[] = [
   {
     title: 'WhatsApp',
     subtitle: isabella.responseTime,
-    image: images.v08Portrait,
+    image: images.beauty09,
+    imagePosition: '20%',
+    imageOffsetX: 0,
     url: 'https://wa.me/5511999999999',
     ctaLabel: 'Chamar no WhatsApp',
     icon: 'whatsapp',
@@ -44,6 +52,7 @@ export const linksData: LinkItem[] = [
     title: 'Mídia Kit',
     subtitle: 'Book completo e tabela de valores.',
     image: images.v07Portrait,
+    imagePosition: '18%',
     url: isabella.contactHref,
     ctaLabel: 'Baixar Mídia Kit',
     icon: 'file',
